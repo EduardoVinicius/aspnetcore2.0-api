@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BaltaStore.Domain.StoreContext.Enums;
-using FluentValidator;
+using BaltaStore.Shared.Entities;
 
 namespace BaltaStore.Domain.StoreContext.Entities
 {
-    public class Order : Notifiable
+    public class Order : Entity
     {
         private readonly IList<OrderItem> _items;
         private readonly IList<Delivery> _deliveries;
@@ -51,7 +51,6 @@ namespace BaltaStore.Domain.StoreContext.Entities
         public void Ship()
         {
             var deliveries = new List<Delivery>();
-            deliveries.Add(new Delivery(DateTime.Now.AddDays(5)));
             var count = 1;
 
             foreach (var item in _items)
@@ -62,6 +61,11 @@ namespace BaltaStore.Domain.StoreContext.Entities
                     deliveries.Add(new Delivery(DateTime.Now.AddDays(5)));
                 }
                 count++;
+            }
+
+            if (deliveries.Count == 0)
+            {
+                deliveries.Add(new Delivery(DateTime.Now.AddDays(5)));
             }
 
             deliveries.ForEach(x => x.Ship());

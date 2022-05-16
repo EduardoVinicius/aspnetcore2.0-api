@@ -1,16 +1,15 @@
 using BaltaStore.Domain.StoreContext.ValueObjects;
-using FluentValidator;
-using System;
+using BaltaStore.Shared.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BaltaStore.Domain.StoreContext.Entities
 {
-    public class Customer : Notifiable
+    public class Customer : Entity
     {
         private readonly IList<Address> _addresses;
 
-        public Customer(Name name, Document document, string email, string phone)
+        public Customer(Name name, Document document, Email email, string phone)
         {
             Name = name;
             Document = document;
@@ -21,7 +20,7 @@ namespace BaltaStore.Domain.StoreContext.Entities
 
         public Name Name { get; set; }
         public Document Document { get; private set; }
-        public string Email { get; private set; }
+        public Email Email { get; private set; }
         public string Phone { get; private set; }
         public IReadOnlyCollection<Address> Addresses => _addresses.ToArray();
 

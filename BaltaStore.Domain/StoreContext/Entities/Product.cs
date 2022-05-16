@@ -1,9 +1,8 @@
-using FluentValidator;
-using System;
+using BaltaStore.Shared.Entities;
 
 namespace BaltaStore.Domain.StoreContext.Entities
 {
-    public class Product : Notifiable
+    public class Product : Entity
     {
         public Product(string title, string description, string image, decimal price, decimal quantity)
         {
@@ -23,6 +22,11 @@ namespace BaltaStore.Domain.StoreContext.Entities
         public override string ToString()
         {
             return Title;
+        }
+
+        public void DecreaseQuantity(decimal quantity)
+        {
+            QuantityOnHand -= quantity;
         }
     }
 }

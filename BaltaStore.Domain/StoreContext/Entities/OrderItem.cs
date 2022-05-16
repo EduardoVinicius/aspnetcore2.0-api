@@ -1,10 +1,8 @@
-using FluentValidator;
-using System;
-using System.Collections.Generic;
+using BaltaStore.Shared.Entities;
 
 namespace BaltaStore.Domain.StoreContext.Entities
 {
-    public class OrderItem : Notifiable
+    public class OrderItem : Entity
     {
         public OrderItem(Product product, decimal quantity)
         {
@@ -14,6 +12,8 @@ namespace BaltaStore.Domain.StoreContext.Entities
 
             if (product.QuantityOnHand < quantity)
                 AddNotification("Quantity", "Product out of stock");
+
+            product.DecreaseQuantity(quantity);
         }
 
         public Product Product { get; private set; }
